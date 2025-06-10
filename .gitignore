@@ -1,0 +1,11 @@
+# Ignorar pasta com bibliotecas do Node.js
+node_modules/
+
+# Arquivos de log
+*.log
+
+# Logs do npm
+npm-debug.log*
+
+# Arquivos de ambiente (caso use depois)
+.env
