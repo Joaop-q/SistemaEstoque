@@ -21,6 +21,11 @@ function cadastrarFornecedor(req, res) {
   return res.status(201).json({ mensagem: "Fornecedor cadastrado com sucesso!", fornecedor: novoFornecedor });
 }
 
+function listarFornecedores(req, res) {
+  return res.status(200).json(fornecedores); // retorna todos os fornecedores
+}
+
 module.exports = {
-  cadastrarFornecedor
+  cadastrarFornecedor,
+  listarFornecedores
 };
