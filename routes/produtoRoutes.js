@@ -6,6 +6,8 @@ const {
   desassociarFornecedor,
   listarFornecedoresAssociados,
   listarProdutos,
+  atualizarProduto, 
+  deletarProduto
 } = require('../controllers/produtoController');
 
 // Rota POST para cadastrar produto
@@ -22,6 +24,13 @@ router.get('/:produtoId/fornecedores', listarFornecedoresAssociados);
 
 // Rota para listar todos os produtos
 router.get('/', listarProdutos);
+
+
+// Rota para atualizar um produto
+router.put('/:produtoId', atualizarProduto);
+
+// Rota para deletar um produto
+router.delete('/:produtoId', deletarProduto);
 
 module.exports = router;
 

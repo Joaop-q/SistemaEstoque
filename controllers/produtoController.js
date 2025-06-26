@@ -24,24 +24,30 @@ function cadastrarProduto(req, res) {
 
 const { fornecedores } = require('../database/db');
 
+
+
 // Associar fornecedor a produto
+
 function associarFornecedor(req, res) {
   const { produtoId } = req.params;
   const { fornecedorId } = req.body;
 
   // Encontrar o produto
+
   const produto = produtos.find(p => p.id == Number(produtoId));
   if (!produto) {
     return res.status(404).json({ mensagem: "Produto não encontrado!" });
   }
 
   // Encontrar o fornecedor
+
   const fornecedor = fornecedores.find(f => f.id == Number(fornecedorId));
   if (!fornecedor) {
     return res.status(404).json({ mensagem: "Fornecedor não encontrado!" });
   }
 
   // Verifica se já está associado
+
   const jaAssociado = produto.fornecedoresAssociados.includes(Number(fornecedorId));
   if (jaAssociado) {
     return res.status(400).json({ mensagem: "Fornecedor já está associado a este produto!" });
@@ -51,7 +57,10 @@ function associarFornecedor(req, res) {
   return res.status(200).json({ mensagem: "Fornecedor associado com sucesso ao produto!", produto });
 }
 
+
+
 // Desassociar fornecedor de produto
+
 function desassociarFornecedor(req, res) {
   const { produtoId, fornecedorId } = req.params;
 
@@ -69,7 +78,10 @@ function desassociarFornecedor(req, res) {
   return res.status(200).json({ mensagem: "Fornecedor desassociado com sucesso!", produto });
 }
 
+
+
 // Listar fornecedores associados
+
 function listarFornecedoresAssociados(req, res) {
   const { produtoId } = req.params;
 
@@ -90,11 +102,53 @@ function listarProdutos(req, res) {
 }
 
 
+// Atualizar produto
+// Permite atualizar apenas os campos enviados no corpo da requisição
+function atualizarProduto(req, res) {
+  const { produtoId } = req.params;
+  const { nomeProduto, codigoBarras, descricao, quantidadeEstoque, categoria, dataValidade, imagemProduto } = req.body;
+
+  const produto = produtos.find(p => p.id == Number(produtoId));
+  if (!produto) {
+    return res.status(404).json({ mensagem: "Produto não encontrado!" });
+  }
+
+  // Atualiza apenas os campos enviados
+  if (nomeProduto !== undefined) produto.nomeProduto = nomeProduto;
+  if (codigoBarras !== undefined) produto.codigoBarras = codigoBarras;
+  if (descricao !== undefined) produto.descricao = descricao;
+  if (quantidadeEstoque !== undefined) produto.quantidadeEstoque = quantidadeEstoque;
+  if (categoria !== undefined) produto.categoria = categoria;
+  if (dataValidade !== undefined) produto.dataValidade = dataValidade;
+  if (imagemProduto !== undefined) produto.imagemProduto = imagemProduto;
+
+  return res.status(200).json({ mensagem: "Produto atualizado com sucesso!", produto });
+}
+
+
+
+// Deletar produto
+
+function deletarProduto(req, res) {
+  const { produtoId } = req.params;
+  const index = produtos.findIndex(p => p.id == Number(produtoId));
+  if (index === -1) {
+    return res.status(404).json({ mensagem: "Produto não encontrado!" });
+  }
+  produtos.splice(index, 1);
+  return res.status(200).json({ mensagem: "Produto deletado com sucesso!" });
+}
+
+
+// Exportando as funções do controller
+// Isso permite que outras partes da aplicação importem e utilizem essas funções
 module.exports = {
   cadastrarProduto,
   listarProdutos,
   associarFornecedor,
   desassociarFornecedor,
-  listarFornecedoresAssociados
+  listarFornecedoresAssociados,
+  atualizarProduto,
+  deletarProduto  
 };
 
