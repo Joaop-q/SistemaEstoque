@@ -63,9 +63,30 @@ function deletarFornecedor(req, res) {
   return res.status(200).json({ mensagem: "Fornecedor deletado com sucesso!" });
 }
 
+
+
+const { produtos } = require('../database/db'); // Adicione no topo, se ainda não tiver
+
+function listarProdutosPorFornecedor(req, res) {
+  const { fornecedorId } = req.params;
+  const fornecedor = fornecedores.find(f => f.id == Number(fornecedorId));
+  if (!fornecedor) {
+    return res.status(404).json({ mensagem: "Fornecedor não encontrado!" });
+  }
+
+  // Busca todos os produtos que possuem esse fornecedor associado
+  const produtosAssociados = produtos.filter(produto =>
+    produto.fornecedoresAssociados.includes(Number(fornecedorId))
+  );
+
+  return res.status(200).json({ produtos: produtosAssociados });
+}
+
+
 module.exports = {
   cadastrarFornecedor,
   listarFornecedores,
   atualizarFornecedor,
-  deletarFornecedor
+  deletarFornecedor,
+  listarProdutosPorFornecedor
 };
