@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProdutoPage from './components/ProdutoPage';
 import FornecedorPage from './components/FornecedorPage';
 import AssociacaoPage from './components/AssociacaoPage';
+import './style.css';
 
 export default function App() {
   const [page, setPage] = useState('produtos');

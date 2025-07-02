@@ -1,0 +1,68 @@
+body {
+  background: #111;
+  color: #00ff41;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: rgba(0,0,0,0.85);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 0 24px #00ff41aa;
+}
+
+h2, h3 {
+  color: #00ff41;
+  text-shadow: 0 0 8px #00ff41;
+}
+
+input, select, button {
+  background: #222;
+  color: #00ff41;
+  border: 1px solid #00ff41;
+  border-radius: 4px;
+  margin: 4px;
+  padding: 8px;
+}
+
+input:focus, select:focus {
+  outline: 2px solid #00ff41;
+}
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #00ff41;
+  color: #111;
+}
+
+.table-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.table-matrix th, .table-matrix td {
+  border: 1px solid #00ff41;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.table-matrix th {
+  background: #222;
+}
+
+.card-matrix {
+  background: #181818;
+  border: 1px solid #00ff41;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px 0;
+  box-shadow: 0 0 8px #00ff4155;
+}
